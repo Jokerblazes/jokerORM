@@ -1,7 +1,18 @@
 package com.joker.jokerORM.interceptor;
 
-import java.sql.Connection;
-
+/**
+ * 过滤器接口(用户可实现)
+ * @author joker
+ * @author joker
+ * {@link https://github.com/Jokerblazes/jokerORM.git}
+ */
 public interface Interceptor {
+	/**
+	 * 过滤实现
+	 * @param invocation
+	 * @return
+	 * @author joker
+	 * {@link https://github.com/Jokerblazes/jokerORM.git}
+	 */
 	public Object intercept(Invocation invocation);
 }
