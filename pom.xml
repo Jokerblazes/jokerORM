@@ -9,7 +9,12 @@
 
 	<name>jokerORM</name>
 	<url>http://maven.apache.org</url>
-	
+	<repositories>
+        <repository>
+            <id>Jokerblazes-connection</id>
+            <url>https://raw.github.com/Jokerblazes/maven-project/master/com</url>
+        </repository>
+    </repositories>
 <!-- <build>
 		<plugins>
 
@@ -52,7 +57,7 @@
 				<version>2.9</version>
 			</extension>
 		</extensions>
-	</build> -->
+	</build>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
@@ -61,7 +66,7 @@
 		<id>jokerORM</id>
 		<url>file:/Users/joker/Desktop/maven-project/</url>
 	</repository>
-</distributionManagement>
+</distributionManagement> -->
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
@@ -84,5 +89,10 @@
 			<artifactId>slf4j-log4j12</artifactId>
 			<version>1.7.2</version>
 		</dependency>
+		<dependency>
+      <artifactId>connection</artifactId>
+      <groupId>com.joker</groupId>
+      <version>0.0.1-SNAPSHOT</version>
+    </dependency>
 	</dependencies>
 </project>

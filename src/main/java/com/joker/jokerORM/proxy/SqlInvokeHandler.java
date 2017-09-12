@@ -3,7 +3,6 @@ package com.joker.jokerORM.proxy;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.sql.Connection;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +10,8 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.joker.connection.DataSourceFactory;
+import com.joker.connection.TransactionUtil;
 import com.joker.jokerORM.executor.DeleteRuleHandler;
 import com.joker.jokerORM.executor.InsertRuleHandler;
 import com.joker.jokerORM.executor.RuleHandler;
@@ -18,17 +19,14 @@ import com.joker.jokerORM.executor.SelectRuleHandler;
 import com.joker.jokerORM.executor.UpdateRuleHandler;
 import com.joker.jokerORM.interceptor.Interceptor;
 import com.joker.jokerORM.interceptor.Invocation;
-import com.joker.jokerORM.interceptor.PageInterceptor;
-import com.joker.jokerORM.util.DruidDataSourceFactory;
 import com.joker.jokerORM.util.MethodType;
-import com.joker.jokerORM.util.TransactionUtil;
 
 public class SqlInvokeHandler implements InvocationHandler{
 	private static final Logger logger = LoggerFactory.getLogger(SqlInvokeHandler.class); 
 	private List<Interceptor> interceptorBeforeChain;
 	private List<Interceptor> interceptorAfterChain;
 	private Map<String,RuleHandler> ruleHandlerMap;
-	
+	private DataSourceFactory dataSourceFactory;
 	
 	
 	private SqlInvokeHandler() {
@@ -38,9 +36,7 @@ public class SqlInvokeHandler implements InvocationHandler{
 		ruleHandlerMap.put("delete", new DeleteRuleHandler());
 		ruleHandlerMap.put("update", new UpdateRuleHandler());
 		ruleHandlerMap.put("select", new SelectRuleHandler());
-		interceptorAfterChain = new ArrayList<>();
-		interceptorBeforeChain = new ArrayList<>();
-		interceptorBeforeChain.add(new PageInterceptor());
+		dataSourceFactory = DataSourceFactory.getInstance();
 	}
 	
 	private static class SqlHandlerHolder {
@@ -49,6 +45,14 @@ public class SqlInvokeHandler implements InvocationHandler{
 	
 	public final static SqlInvokeHandler getInstance() {
 		return SqlHandlerHolder.handler;
+	}
+	
+	public void setInterceptorBeforeChain(List<Interceptor> interceptorBeforeChain) {
+		this.interceptorBeforeChain = interceptorBeforeChain;
+	}
+
+	public void setInterceptorAfterChain(List<Interceptor> interceptorAfterChain) {
+		this.interceptorAfterChain = interceptorAfterChain;
 	}
 	
 	@Override
@@ -71,7 +75,7 @@ public class SqlInvokeHandler implements InvocationHandler{
 			}
 			connection = TransactionUtil.getConnection();
 			if (connection == null) {
-				connection = DruidDataSourceFactory.getConnection();
+				connection = dataSourceFactory.getConnection();
 				flag = false;
 			}
 			//2：执行前置过滤器链
