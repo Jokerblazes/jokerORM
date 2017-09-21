@@ -11,7 +11,7 @@
 	<url>http://maven.apache.org</url>
 	<repositories>
         <repository>
-            <id>Jokerblazes-connection</id>
+            <id>Jokerblazes-support</id>
             <url>https://raw.github.com/Jokerblazes/maven-project/master/com</url>
         </repository>
     </repositories>
@@ -47,6 +47,19 @@
 					</execution>
 				</executions>
 			</plugin>
+			<plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-source-plugin</artifactId>
+            <version>3.0.1</version>
+            <executions>
+                <execution>
+                    <id>attach-sources</id>
+                    <goals>
+                        <goal>jar</goal>
+                    </goals>
+                </execution>
+            </executions>
+        </plugin>
 		</plugins>
 
 
@@ -90,7 +103,7 @@
 			<version>1.7.2</version>
 		</dependency>
 		<dependency>
-      <artifactId>connection</artifactId>
+      <artifactId>support</artifactId>
       <groupId>com.joker</groupId>
       <version>0.0.1-SNAPSHOT</version>
     </dependency>

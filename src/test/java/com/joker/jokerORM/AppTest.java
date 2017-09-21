@@ -9,6 +9,7 @@ import java.util.Map;
 import org.junit.Test;
 
 import com.joker.jokerORM.instance.SqlHelper;
+import com.joker.jokerORM.proxy.SqlInvokeHandler;
 import com.joker.jokerORM.proxy.SqlProxyFactory;
 import com.joker.jokerORM.util.Entity;
 
