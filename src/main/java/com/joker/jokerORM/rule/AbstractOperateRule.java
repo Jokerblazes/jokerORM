@@ -16,7 +16,7 @@ public abstract class AbstractOperateRule {
 		if (object == null) 
 			return false;
 		else 
-			if (object instanceof Number && object.equals("0"))
+			if (object instanceof Number && object.equals(0))
 				return false;
 		return true;
 	}

@@ -3,6 +3,7 @@ package com.joker.jokerORM.instance;
 import java.util.List;
 
 import com.joker.jokerORM.util.BeanId;
+import com.joker.jokerORM.util.Constant;
 import com.joker.jokerORM.util.MethodType;
 
 public interface SqlHelper<V> {
@@ -129,7 +130,7 @@ public interface SqlHelper<V> {
 	 * @author joker
 	 * {@link https://github.com/Jokerblazes/jokerORM.git}
 	 */
-	@MethodType(value="select",type=2)
+	@MethodType(value="select",type=1)
 	public List<V> selectList(Class beanClass,String sql,Object page);
 	
 //	@MethodType(value="select",type=1)

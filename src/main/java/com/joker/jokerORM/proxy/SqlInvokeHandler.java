@@ -18,6 +18,7 @@ import com.joker.jokerORM.executor.UpdateRuleHandler;
 import com.joker.jokerORM.interceptor.Interceptor;
 import com.joker.jokerORM.interceptor.Invocation;
 import com.joker.jokerORM.util.BeanId;
+import com.joker.jokerORM.util.Constant;
 import com.joker.jokerORM.util.MethodType;
 import com.joker.support.connection.DataSourceFactory;
 import com.joker.support.connection.TransactionUtil;
@@ -67,7 +68,7 @@ public class SqlInvokeHandler implements InvocationHandler{
 			MethodType type = method.getAnnotation(MethodType.class);
 			RuleHandler handler = ruleHandlerMap.get(type.value());
 			String sql = null;
-			if (type.type() != 1) {
+			if (type.type() == Constant.NO_SQL_NO_PAGE || type.type() == Constant.NO_SQL_WITH_PAGE) {
 				beanClass = args[0].getClass();
 				sql = handler.createSql(args[0]);
 				if (beanClass == BeanId.class) {
