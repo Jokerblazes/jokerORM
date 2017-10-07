@@ -2,6 +2,7 @@ package com.joker.jokerORM.instance;
 
 import java.util.List;
 
+import com.joker.jokerORM.util.BeanId;
 import com.joker.jokerORM.util.MethodType;
 
 public interface SqlHelper<V> {
@@ -26,6 +27,7 @@ public interface SqlHelper<V> {
 	@MethodType(value="update")
 	public int update(V v);
 	
+	
 	/**
 	 * 删除v对象
 	 * @param v
@@ -37,6 +39,16 @@ public interface SqlHelper<V> {
 	public int delete(V v);
 	
 	/**
+	 * 删除v对象
+	 * @param id
+	 * @return
+	 * @author joker
+	 * {@link https://github.com/Jokerblazes/jokerORM.git}
+	 */
+	@MethodType(value="delete")
+	public int delete(BeanId id);
+	
+	/**
 	 * 查询V List
 	 * @param v
 	 * @return
@@ -45,6 +57,16 @@ public interface SqlHelper<V> {
 	 */
 	@MethodType(value="select")
 	public List<V> selectList(V v);
+	
+	/**
+	 * 查询V 
+	 * @param id
+	 * @return
+	 * @author joker
+	 * {@link https://github.com/Jokerblazes/jokerORM.git}
+	 */
+	@MethodType(value="select")
+	public List<V> selectV(BeanId id);
 	
 	/**
 	 * 分页查询V List

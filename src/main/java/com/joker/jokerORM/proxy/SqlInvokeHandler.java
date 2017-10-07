@@ -17,6 +17,7 @@ import com.joker.jokerORM.executor.SelectRuleHandler;
 import com.joker.jokerORM.executor.UpdateRuleHandler;
 import com.joker.jokerORM.interceptor.Interceptor;
 import com.joker.jokerORM.interceptor.Invocation;
+import com.joker.jokerORM.util.BeanId;
 import com.joker.jokerORM.util.MethodType;
 import com.joker.support.connection.DataSourceFactory;
 import com.joker.support.connection.TransactionUtil;
@@ -69,10 +70,14 @@ public class SqlInvokeHandler implements InvocationHandler{
 			if (type.type() != 1) {
 				beanClass = args[0].getClass();
 				sql = handler.createSql(args[0]);
+				if (beanClass == BeanId.class) {
+					beanClass = ((BeanId) args[0]).getBeanClass();
+				}
 			} else {
 				beanClass = (Class) args[0];
 				sql = (String) args[1];
 			}
+			System.out.println(sql);
 			connection = TransactionUtil.getConnection();
 			if (connection == null) {
 				connection = dataSourceFactory.getConnection();

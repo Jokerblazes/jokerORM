@@ -42,6 +42,10 @@ public class InsertRule extends AbstractOperateRule {
 
 
 
+
+
+
+
 	
 
 }

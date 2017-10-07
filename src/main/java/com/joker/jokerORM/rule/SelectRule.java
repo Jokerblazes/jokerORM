@@ -24,9 +24,11 @@ public class SelectRule extends AbstractOperateRule {
 	@Override
 	void handleStringBuffer(StringBuffer buffer,String keyName,Object keyValue) {
 		buffer.append("1=1");
-		if (!isNull(keyValue)) 
+		if (isNotNull(keyValue)) 
 			buffer.append(" AND " + keyName + "=" + keyValue);
 	}
+
+
 	
 
 

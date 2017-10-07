@@ -14,5 +14,5 @@ public interface Interceptor {
 	 * @author joker
 	 * {@link https://github.com/Jokerblazes/jokerORM.git}
 	 */
-	public Object intercept(Invocation invocation);
+	Object intercept(Invocation invocation);
 }

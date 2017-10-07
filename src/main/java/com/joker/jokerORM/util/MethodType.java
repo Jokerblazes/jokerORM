@@ -10,5 +10,6 @@ import java.lang.annotation.Target;
 public @interface MethodType {
 	String value() default "";
 	
+	//0 3代表自动生成sql 1代表用户传入的sql 2代表需要分页
 	int type() default  0;
 }

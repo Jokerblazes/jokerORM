@@ -23,12 +23,14 @@ public class DeleteRule extends AbstractOperateRule {
 
 	@Override
 	void handleStringBuffer(StringBuffer buffer,String keyName,Object keyValue) {
-		if (!isNull(keyValue)) {
+		if (isNotNull(keyValue)) {
 			buffer.append("`" + keyName + "`=" + "'" + keyValue + "'");
 		} else {
 			buffer.delete(buffer.length() - 5, buffer.length());
 		}
 	}
+
+
 
 
 }
