@@ -9,8 +9,11 @@ import java.sql.SQLException;
 import com.joker.jokerORM.interceptor.Interceptor;
 import com.joker.jokerORM.interceptor.Invocation;
 import com.joker.jokerORM.util.MethodType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class PageInterceptor implements Interceptor {
+	private final static Logger logger = LoggerFactory.getLogger(PageInterceptor.class);
 
 	public Object intercept(Invocation invocation) {
 //		Method method = invocation.getMethod();
@@ -26,7 +29,7 @@ public class PageInterceptor implements Interceptor {
 			}
 		String sql = invocation.getSql();
 		sql = sql + " LIMIT " + page.getDbIndex() + "," + page.getPageNumber();
-		System.out.println(sql);
+		logger.info("分页Sql {}",sql);
 		String finalSql = "select count(*) from (" + sql + ")a";
 		Connection connection = invocation.getConnection();
 		try {

@@ -26,7 +26,9 @@ public abstract class AbstractOperateRule {
 	abstract String createSqlAttach(Class objectClass);
 	abstract String createSqlField(Object value,String name);
 	abstract void handleStringBuffer(StringBuffer buffer,String keyName,Object keyValue);
-	public void createSqlbyId(BeanId beanId,StringBuffer stringBuffer) {
+
+	//通过id生成select语句
+	private void createSqlbyId(BeanId beanId,StringBuffer stringBuffer) {
 		int id = beanId.getId();
 		String name = beanId.getIdName();
 		Class clazz = beanId.getBeanClass();
@@ -37,11 +39,14 @@ public abstract class AbstractOperateRule {
 	
 	public String createSql(Object object) {
 		StringBuffer stringBuffer = new StringBuffer();
+		//是否是BeanId类型
 		if (object instanceof BeanId) {
 			createSqlbyId((BeanId)object,stringBuffer);
 			return stringBuffer.toString();
 		}
+		//生成sql head
 		String head = createSqlHead();
+		//生成sql content
 		Class objectClass = object.getClass();
 		String attach = createSqlAttach(objectClass);
 		Field[] fields = objectClass.getDeclaredFields();
@@ -67,6 +72,7 @@ public abstract class AbstractOperateRule {
 			}
 		}
 		handleStringBuffer(stringBuffer, keyName, keyValue);
+		//生成sql tail
 		String tail = stringBuffer.toString();
 		return head + attach + tail;
 	}

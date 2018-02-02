@@ -68,6 +68,7 @@ public class SqlInvokeHandler implements InvocationHandler{
 			MethodType type = method.getAnnotation(MethodType.class);
 			RuleHandler handler = ruleHandlerMap.get(type.value());
 			String sql = null;
+			//是否由ORM生成Sql
 			if (type.type() == Constant.NO_SQL_NO_PAGE || type.type() == Constant.NO_SQL_WITH_PAGE) {
 				beanClass = args[0].getClass();
 				sql = handler.createSql(args[0]);
@@ -78,7 +79,6 @@ public class SqlInvokeHandler implements InvocationHandler{
 				beanClass = (Class) args[0];
 				sql = (String) args[1];
 			}
-			System.out.println(sql);
 			connection = TransactionUtil.getConnection();
 			if (connection == null) {
 				connection = dataSourceFactory.getConnection();

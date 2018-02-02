@@ -19,13 +19,13 @@ public abstract class RuleHandler<V> {
 	public String createSql(Object object) {
 		return rule.createSql(object);
 	}
-	
+
+	//给更新、删除、添加使用
 	int doSimpleExecute(String sql,Connection connection) {
 		try {
 			PreparedStatement ps = connection.prepareStatement(sql);
 			return ps.executeUpdate();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return 0;
